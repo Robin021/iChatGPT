@@ -46,3 +46,12 @@ input[type="submit"] {
     max-height: 200px;
     
 }
+.question {
+  min-height: 50px;
+  background-color: #343541;
+}
+
+.answer {
+  min-height: 50px;
+  background-color: #d9d9e3;
+}
