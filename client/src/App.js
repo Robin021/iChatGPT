@@ -17,11 +17,11 @@ function App() {
       if (questions.length === 0) {
         return;
       }
-      let response = await fetch(`http://127.0.0.1:5000/ask?q=${encodeURIComponent(questions[0])}`);
+      let response = await fetch(`http://127.0.0.1:5000/ask?q=${questions[0]}`);
       response = await response.json();
       setAnswers([...answers, response.answers]);
       setQuestions(questions.slice(1));
-      setPrevAnswer((prev) => prev + '\n你:' + questions[0] + '\n\nChatBot:' + response.answers + '\n');
+      setPrevAnswer((prev) => prev + '\n你: ' + questions[0] + '\n\nChatBot:' + response.answers + '\n');
     };
     getAnswer();
   }, [questions]);
