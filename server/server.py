@@ -35,8 +35,7 @@ def ask():
         max_tokens=128,
         n=1,
         stop=None,
-        temperature=0.5,
-        conversation_id=conversation_id
+        temperature=0.5
     )
     
     message = completions.choices[0].text
