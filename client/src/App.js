@@ -6,26 +6,39 @@ function App() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [prevAnswer, setPrevAnswer] = useState('');
-  
+  const [conversationId, setConversationId] = useState(''); 
+  const inputRef = React.useRef();
   const handleSubmit = (e) => {
     e.preventDefault();
     setQuestions([...questions, e.target.elements.question.value]);
+    inputRef.current.value = '';
   };
+
+
 
   useEffect(() => {
     const getAnswer = async () => {
       if (questions.length === 0) {
         return;
       }
-      let response = await fetch(`http://127.0.0.1:5000/ask?q=${questions[0]}`);
+      let response = await fetch(`http://127.0.0.1:5000/ask?q=${questions[0]}&conversation_id=${conversationId}`); 
       response = await response.json();
       setAnswers([...answers, response.answers]);
-      setQuestions(questions.slice(1));
-      setPrevAnswer((prev) => prev + '\n你: ' + questions[0] + '\n\nChatBot:' + response.answers + '\n');
+      setQuestions([]);  
+      setPrevAnswer(prevAnswer + '\n你: ' + questions[0] + '\n\nChatBot:' + response.answers + '\n');
+    
     };
     getAnswer();
   }, [questions]);
-
+  useEffect(() => {
+    const getNewConversationId = async () => {
+      let response = await fetch(`http://127.0.0.1:5000/new-conversation`);
+      response = await response.json();
+      const id = response.id;
+      setConversationId(id); 
+    };
+    getNewConversationId();
+  }, []);
   useEffect(() => {
     document.querySelector('.answer-area').scrollTop = document.querySelector('.answer-area').scrollHeight;
   }, [prevAnswer]);
@@ -37,8 +50,8 @@ function App() {
         <br />
       </pre>
       <form onSubmit={handleSubmit} className='question-form'>
-        <input name='question' type='text' />
-        <input type='submit' value='Ask' />
+        <input name='question' ref={inputRef} type='text' />
+        <input type='submit' value='问' />
       </form>
     </div>
   );
