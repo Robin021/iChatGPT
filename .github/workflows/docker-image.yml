@@ -10,6 +10,7 @@ on:
 env:
   APP_NAME: ichatgpt
   DOCKERHUB_REPO: westman/ichatgpt-backend
+  DOCKERHUB_REPO_FRONTEND: westman/ichatgpt-frontend
 
 jobs:
   docker:
@@ -34,10 +35,11 @@ jobs:
         name: Generate App Version
         run: echo APP_VERSION=`git describe --tags --always` >> $GITHUB_ENV
       -
-        name: Build and push
+        name: Build and push backend
         uses: docker/build-push-action@v2
         with:
           context: .
+          file: ./dockerfile
           platforms: |
             linux/amd64
             linux/arm64
@@ -48,3 +50,19 @@ jobs:
           tags: |
             ${{ env.DOCKERHUB_REPO }}:latest
             ${{ env.DOCKERHUB_REPO }}:${{ env.APP_VERSION }}
+     -
+        name: Build and push frontend
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./client/dockerfile
+          platforms: |
+            linux/amd64
+            linux/arm64
+          push: true
+          build-args: |
+            APP_NAME=${{ env.APP_NAME }}-frontend
+            APP_VERSION=${{ env.APP_VERSION }}
+          tags: |
+            ${{ env.DOCKERHUB_REPO_FRONTEND }}:latest
+            ${{ env.DOCKERHUB_REPO_FRONTEND }}:${{ env.APP_VERSION }}
