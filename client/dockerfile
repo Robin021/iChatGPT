@@ -13,8 +13,8 @@ RUN npm ci --only=production
 # Copy the rest of the application files into the container
 COPY . .
 
-# Build the project
-RUN npm run build
+# # Build the project
+# RUN npm run build
 
 # Expose the container port for the app
 EXPOSE 3000
