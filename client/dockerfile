@@ -1,23 +1,6 @@
-# Use Node.js as the base image
-FROM node:lts-alpine
-
-# Set the working directory in the container
+FROM node:16-alpine
 WORKDIR /app
-
-# Copy the package.json and package-lock.json files into the container
-COPY package*.json ./
-
-# Install the project dependencies
-RUN npm ci --only=production
-
-# Copy the rest of the application files into the container
-COPY . .
-
-# # Build the project
-# RUN npm run build
-
-# Expose the container port for the app
-EXPOSE 3000
-
-# Run the command to start the application
-CMD ["npm", "start"]
+COPY package.json ./
+COPY ./ ./
+RUN npm install 
+CMD ["npm","start"]
