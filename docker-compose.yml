@@ -8,28 +8,14 @@ networks:
         - subnet: '177.8.0.0/16'
 
 services:
-  web:
-    build:
-      context: ./
-      # dockerfile: ./dockerfile_pc
-    # container_name: westman/ichatgpt-frontend
-    image: westman/ichatgpt-frontend
-    restart: always
+  frontend:
+    image: westman/ichatgpt-frontend:latest
     ports:
-      - '3000:3000'
-    # command: [ 'nginx-debug', '-g', 'daemon off;' ]
-    networks:
-        network:
-          ipv4_address: 177.8.0.12
+      - "3000:3000"
+    depends_on:
+      - backend
   backend:
-    build:
-      context: ./
-      # dockerfile: ./dockerfile_pc
-    # container_name: westman/ichatgpt-backend
-    image: westman/ichatgpt-backend
-    restart: always
+    image: westman/ichatgpt-backend:latest
     ports:
-      - '5001:5001'
-    networks:
-        network:
-          ipv4_address: 177.8.0.13
+      - "5001:5001"
+
