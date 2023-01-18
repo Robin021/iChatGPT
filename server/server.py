@@ -35,10 +35,10 @@ def ask():
     completions = openai.Completion.create(
         engine="text-davinci-003",
         prompt = ' '.join(history),
-        max_tokens=MAX_TOKENS,
+        max_tokens=int(MAX_TOKENS),
         n=1,
         stop=None,
-        temperature=TEMPRATURE
+        temperature="{:.1f}".format(TEMPRATURE)
     )
     id = completions.id
     message = completions.choices[0].text
@@ -56,10 +56,10 @@ def new_conversation():
     completions = openai.Completion.create(
         engine="text-davinci-003",
         prompt='',  # pass an empty prompt to start a new conversation
-        max_tokens=MAX_TOKENS,
+        max_tokens=int(MAX_TOKENS),
         n=1,
         stop=None,
-        temperature=TEMPRATURE
+        temperature="{:.1f}".format(TEMPRATURE)
     )
     
     id = completions.id
