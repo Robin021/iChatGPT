@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OPEN_AI_KEY = os.getenv('OPEN_AI_KEY')
+MAX_TOKENS = os.getenv('MAX_TOKENS')
+TEMPRATURE = os.getenv('TEMPRATURE')
 if not OPEN_AI_KEY:
     print("Please add your OPEN AI KEY in .env")
     quit(0)
@@ -33,10 +35,10 @@ def ask():
     completions = openai.Completion.create(
         engine="text-davinci-003",
         prompt = ' '.join(history),
-        max_tokens=2048,
+        max_tokens=MAX_TOKENS,
         n=1,
         stop=None,
-        temperature=0.4
+        temperature=TEMPRATURE
     )
     id = completions.id
     message = completions.choices[0].text
@@ -54,10 +56,10 @@ def new_conversation():
     completions = openai.Completion.create(
         engine="text-davinci-003",
         prompt='',  # pass an empty prompt to start a new conversation
-        max_tokens=1024,
+        max_tokens=MAX_TOKENS,
         n=1,
         stop=None,
-        temperature=0.5
+        temperature=TEMPRATURE
     )
     
     id = completions.id
