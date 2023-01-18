@@ -8,7 +8,8 @@ load_dotenv()
 
 OPEN_AI_KEY = os.getenv('OPEN_AI_KEY')
 MAX_TOKENS = os.getenv('MAX_TOKENS')
-TEMPRATURE = os.getenv('TEMPRATURE')
+TEMPRATURE = float(os.getenv('TEMPRATURE'))
+# TEMPRATURE = "{:.1f}".format(TEMPRATURE)
 if not OPEN_AI_KEY:
     print("Please add your OPEN AI KEY in .env")
     quit(0)
@@ -38,7 +39,7 @@ def ask():
         max_tokens=int(MAX_TOKENS),
         n=1,
         stop=None,
-        temperature="{:.1f}".format(TEMPRATURE)
+        temperature=TEMPRATURE
     )
     id = completions.id
     message = completions.choices[0].text
@@ -59,7 +60,7 @@ def new_conversation():
         max_tokens=int(MAX_TOKENS),
         n=1,
         stop=None,
-        temperature="{:.1f}".format(TEMPRATURE)
+        temperature=TEMPRATURE
     )
     
     id = completions.id
