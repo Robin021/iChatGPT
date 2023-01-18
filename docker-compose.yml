@@ -11,12 +11,14 @@ services:
   frontend:
     image: westman/ichatgpt-frontend:latest
     ports:
-      - "3000:3000"
+      - "80:3000"
     depends_on:
       - backend
     networks:
         network:
           ipv4_address: 177.8.0.10
+    env_file:
+      - ./.env
   backend:
     image: westman/ichatgpt-backend:latest
     ports:
