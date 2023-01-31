@@ -67,5 +67,13 @@ def new_conversation():
     print("id in new:" + id)
     return {"id": id}
 
+@app.route("/asr", methods=["GET"])
+@cross_origin()
+def asr():
+    file_path = "path/to/audio/file.mp3"
+    response = openai.Audio.create(file=file_path, model="text-davinci-002")
+    print(response["data"])
+    
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5001,debug=True)
