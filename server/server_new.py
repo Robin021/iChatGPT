@@ -15,13 +15,6 @@ if not OPEN_AI_KEY:
     quit(0)
 
 app = Flask(__name__)
-
-history = []
-# history = history[-10:]  # keep only the last 10 messages in the history
-history = [h.replace('\n', ' ') for h in history]  # remove newline characters
-# remove carriage return characters
-history = [h.replace('\r', ' ') for h in history]
-history = [h.replace('\t', ' ') for h in history]  # remove tab characters
 openai.api_key = OPEN_AI_KEY
 
 
@@ -251,4 +244,4 @@ def asr():
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=5001, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)
