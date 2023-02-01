@@ -9,7 +9,7 @@ networks:
 
 services:
   frontend:
-    image: westman/ichatgpt-frontend:latest
+    image: ghcr.io/robin021/ichatgptweb:main
     ports:
       - "80:3000"
     depends_on:
@@ -20,7 +20,7 @@ services:
     env_file:
       - ./.env
   backend:
-    image: westman/ichatgpt-backend:latest
+    image: ghcr.io/robin021/ichatgpt:main
     ports:
       - "5001:5001"
     networks:
