@@ -219,7 +219,6 @@ def chat():
     prompt = request.args.get('q')
     # decode the `q` parameter from UTF-8 encoding
     prompt = urllib.parse.unquote(prompt)
-    history.append(prompt)  # add the latest question to the history
     chatbot = Chatbot(api_key=OPEN_AI_KEY)
     # Start chat
     PROMPT = prompt
@@ -230,7 +229,7 @@ def chat():
     print("ChatGPT: " + response["choices"][0]["text"])
     message = response["choices"][0]["text"]
     message = message.replace("\n\n", "")
-    history.append(message)
+
 
     print(message)
     return {"answers": message}
