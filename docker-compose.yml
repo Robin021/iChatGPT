@@ -28,3 +28,6 @@ services:
           ipv4_address: 177.8.0.2
     env_file:
       - ./.env
+  watchtower:
+    image: containrrr/watchtower
+    command: --interval 300
