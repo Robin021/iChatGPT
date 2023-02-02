@@ -48,7 +48,7 @@ def chat():
 
     user_request = request.args.get('q')
     # decode the `q` parameter from UTF-8 encoding
-    user_request = urllib.parse.unquote(prompt)
+    user_request = urllib.parse.unquote(user_request)
     chatbot = Chatbot(api_key=OPEN_AI_KEY,
                       temprature=TEMPRATURE, base_prompt=base_prompt)
     # Start chat

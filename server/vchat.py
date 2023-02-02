@@ -11,7 +11,7 @@ listen = SpeechRecognizer()
 
 speak = Speak()
 
-chatbot = Chatbot(api_key=OPEN_AI_KEY, temprature = "0.5")
+chatbot = Chatbot(api_key=OPEN_AI_KEY, temprature = "0.5",base_prompt="")
 
 print("Say something!")
 while True:
