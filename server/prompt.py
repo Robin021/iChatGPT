@@ -1,5 +1,5 @@
 
-
+from os import environ
 class Prompt:
     """
     Prompt class with methods to construct prompt
@@ -9,8 +9,10 @@ class Prompt:
         """
         Initialize prompt with base prompt
         """
-        self.base_prompt = "You are ChatGPT, a large language model trained by OpenAI. You answer as concisely as possible for each response (e.g. Don't be verbose).\n"
-     
+        self.base_prompt = (
+            environ.get("CUSTOM_BASE_PROMPT")
+            or "You are ChatGPT, a large language model trained by OpenAI. You answer as concisely as possible for each response (e.g. Don't be verbose).\n"
+        )
         # Track chat history
         self.chat_history: list = []
 
