@@ -2,3 +2,6 @@ openai
 flask
 flask_cors
 python-dotenv
+pyttsx3
+SpeechRecognition
+pyaudio
