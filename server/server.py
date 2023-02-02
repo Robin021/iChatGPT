@@ -61,7 +61,7 @@ def chat():
     print("ChatGPT: " + response["choices"][0]["text"])
     message = response["choices"][0]["text"]
     message = message.replace("\n\n", "")
-    print(message)
+    # print(message)
     return {"answers": message}
 
 @app.route("/asr", methods=["GET"])
