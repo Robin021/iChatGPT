@@ -20,6 +20,8 @@ if not OPEN_AI_KEY:
     quit(0)
 
 app = Flask(__name__)
+chatbot = Chatbot(api_key=OPEN_AI_KEY,
+                  temprature=TEMPRATURE, base_prompt=base_prompt)
 
 @app.route("/chat", methods=["GET"])
 @cross_origin()
@@ -50,15 +52,14 @@ def chat():
     user_request = request.args.get('q')
     # decode the `q` parameter from UTF-8 encoding
     user_request = urllib.parse.unquote(user_request)
-    chatbot = Chatbot(api_key=OPEN_AI_KEY,
-                      temprature=TEMPRATURE, base_prompt=base_prompt)
+
     # Start chat
     PROMPT = user_request
     if PROMPT.startswith("!"):
         if chatbot_commands(PROMPT):
             print("continue")
     response = chatbot.ask(PROMPT)
-    print("ChatGPT: " + response["choices"][0]["text"])
+    # print("ChatGPT: " + response["choices"][0]["text"])
     message = response["choices"][0]["text"]
     message = message.replace("\n\n", "")
     # print(message)

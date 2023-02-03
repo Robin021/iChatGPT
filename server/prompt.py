@@ -24,7 +24,7 @@ class Prompt:
         """
         Return chat history
         """
-        return "\n\n\n\n".join(self.chat_history)
+        return "\n".join(self.chat_history)
 
     def construct_prompt(self, new_prompt: str) -> str:
         """

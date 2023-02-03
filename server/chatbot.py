@@ -35,12 +35,13 @@ class Chatbot:
         }
         """
         prompt = self.prompt.construct_prompt(user_request)
+       
         completion = openai.Completion.create(
             engine="text-davinci-003",
             prompt=prompt,
             temperature=self.temprature,
             max_tokens=1024,
-            stop=["\n\n\n"],
+            stop=["\n"],
         )
         if completion.get("choices") is None:
             raise Exception("ChatGPT API returned no choices")
@@ -56,11 +57,12 @@ class Chatbot:
         self.prompt.add_to_chat_history(
             "You: "
             + user_request
-            + "\n\n\n"
+            + "\n"
             + "ChatGPT: "
             + completion["choices"][0]["text"]
-            + "\n\n\n",
+            + "\n",
         )
+        print(self.prompt.history())
         return completion
 
     def rollback(self, num: int) -> None:
