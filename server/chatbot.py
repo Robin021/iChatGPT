@@ -36,7 +36,7 @@ class Chatbot:
         """
         prompt = self.prompt.construct_prompt(user_request)
         completion = openai.Completion.create(
-            engine="text-chat-davinci-002-20230126",
+            engine="text-davinci-003",
             prompt=prompt,
             temperature=self.temprature,
             max_tokens=1024,
