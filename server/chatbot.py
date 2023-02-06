@@ -6,7 +6,7 @@ class Chatbot:
     Official ChatGPT API
     """
 
-    def __init__(self, api_key: str, temprature: str, base_prompt:str) -> None:
+    def __init__(self, api_key: str, temprature: str, base_prompt:str, model:str) -> None:
         """
         Initialize Chatbot with API key (from https://platform.openai.com/account/api-keys)
         """
@@ -14,6 +14,7 @@ class Chatbot:
         self.prompt = Prompt()
         self.prompt.base_prompt = base_prompt
         self.temprature = temprature
+        self.model = model
 
     def ask(self, user_request: str) -> dict:
         """
@@ -35,20 +36,22 @@ class Chatbot:
         }
         """
         prompt = self.prompt.construct_prompt(user_request)
-       
+        print("prompt:" + prompt)
         completion = openai.Completion.create(
-            engine="text-chat-davinci-002-20221122",
+            engine=self.model,
             prompt=prompt,
             temperature=self.temprature,
             max_tokens=1024,
             stop=["\n"],
         )
+        # print(completion)
         if completion.get("choices") is None:
             raise Exception("ChatGPT API returned no choices")
         if len(completion["choices"]) == 0:
             raise Exception("ChatGPT API returned no choices")
         if completion["choices"][0].get("text") is None:
             raise Exception("ChatGPT API returned no text")
+        print("##########")
         completion["choices"][0]["text"] = completion["choices"][0]["text"].replace(
             "<|im_end|>",
             "",
@@ -62,7 +65,7 @@ class Chatbot:
             + completion["choices"][0]["text"]
             + "\n",
         )
-        print(self.prompt.history())
+        # print(self.prompt.history())
         return completion
 
     def rollback(self, num: int) -> None:

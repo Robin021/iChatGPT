@@ -13,6 +13,7 @@ load_dotenv()
 OPEN_AI_KEY = os.getenv('OPEN_AI_KEY')
 MAX_TOKENS = os.getenv('MAX_TOKENS')
 TEMPRATURE = float(os.getenv('TEMPRATURE'))
+MODEL = (os.getenv('MODEL') or "text-davinci-002")
 base_prompt = (os.getenv("CUSTOM_BASE_PROMPT")
                or "You are ChatGPT, a large language model trained by OpenAI. You answer as concisely as possible for each response (e.g. Don't be verbose).\n")
 if not OPEN_AI_KEY:
@@ -21,7 +22,7 @@ if not OPEN_AI_KEY:
 
 app = Flask(__name__)
 chatbot = Chatbot(api_key=OPEN_AI_KEY,
-                  temprature=TEMPRATURE, base_prompt=base_prompt)
+                  temprature=TEMPRATURE, base_prompt=base_prompt, model=MODEL)
 
 @app.route("/chat", methods=["GET"])
 @cross_origin()
@@ -55,6 +56,7 @@ def chat():
 
     # Start chat
     PROMPT = user_request
+    # print("prompt:" + PROMPT)
     if PROMPT.startswith("!"):
         if chatbot_commands(PROMPT):
             print("continue")
