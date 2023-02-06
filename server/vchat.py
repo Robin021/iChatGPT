@@ -15,7 +15,9 @@ chatbot = Chatbot(api_key=OPEN_AI_KEY, temprature = "0.5",base_prompt="")
 
 print("Say something!")
 while True:
+    speak.speak("开始录音")
     message = listen.listen()
+    speak.speak("录音结束")
     print(f"Recognized: {message}")
     # Start chat
     resp = chatbot.ask(message)

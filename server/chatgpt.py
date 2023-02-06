@@ -254,7 +254,7 @@ def main():
             if chatbot_commands(PROMPT):
                 continue
         response = chatbot.ask(PROMPT)
-        print("ChatGPT: " + response["choices"][0]["text"])
+        # print("ChatGPT: " + response["choices"][0]["text"])
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ class Chatbot:
         prompt = self.prompt.construct_prompt(user_request)
        
         completion = openai.Completion.create(
-            engine="text-davinci-003",
+            engine="text-chat-davinci-002-20221122",
             prompt=prompt,
             temperature=self.temprature,
             max_tokens=1024,
@@ -79,6 +79,7 @@ class Chatbot:
         self.prompt.chat_history = []
 
 
+
 class AsyncChatbot(Chatbot):
     """
     Official ChatGPT API (async)
@@ -105,7 +106,7 @@ class AsyncChatbot(Chatbot):
         """
         prompt = self.prompt.construct_prompt(user_request)
         completion = await openai.Completion.acreate(
-            engine="text-chat-davinci-002-20230126",
+            engine="text-chat-davinci-002-20221122",
             prompt=prompt,
             temperature=0.5,
             max_tokens=1024,
