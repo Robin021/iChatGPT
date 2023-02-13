@@ -7,9 +7,11 @@ import urllib.parse
 from flask import Flask, request
 from flask_cors import cross_origin
 from dotenv import load_dotenv
-
+from loguru import logger
 
 load_dotenv()
+logger.add("./log/runtime_{time}.log", retention="10 days", rotation="500 MB")
+
 OPEN_AI_KEY = os.getenv('OPEN_AI_KEY')
 MAX_TOKENS = os.getenv('MAX_TOKENS')
 TEMPRATURE = float(os.getenv('TEMPRATURE'))
