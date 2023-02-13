@@ -6,6 +6,5 @@ pyttsx3
 SpeechRecognition
 loguru
 wechatpy
-check_signature
 Crypto
 cryptography
