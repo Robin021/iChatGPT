@@ -8,6 +8,10 @@ from flask import Flask, request
 from flask_cors import cross_origin
 from dotenv import load_dotenv
 from loguru import logger
+from wechatpy.utils import check_signature
+from wechatpy.exceptions import InvalidSignatureException
+from wechatpy import parse_message
+from wechatpy.replies import TextReply
 
 load_dotenv()
 logger.add("./log/runtime_{time}.log", retention="10 days", rotation="500 MB")

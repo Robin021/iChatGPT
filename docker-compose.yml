@@ -28,6 +28,8 @@ services:
           ipv4_address: 177.8.0.2
     env_file:
       - ./.env
+    volumes:
+      - ./log:/app/log/
   watchtower:
     image: containrrr/watchtower
     volumes:
