@@ -78,6 +78,7 @@ def default():
       return "hello ,server running"
 
 @app.route("/wx", methods=["GET", "POST"])
+
 def index():
     if request.method == "GET":
         signature = request.args.get('signature')
@@ -112,7 +113,7 @@ def index():
         reply.target = source
 
         # Start chat
-        PROMPT = user_request
+        PROMPT = msgCcontent
         # print("prompt:" + PROMPT)
         if PROMPT.startswith("!"):
             if chatbot_commands(PROMPT):
